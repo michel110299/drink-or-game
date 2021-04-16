@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+{% load materializecss %}
+{%block conteudo%}
+
+<main>
+    
+{% for x in desafios %}
+    <br> 
+    {{x.frase}}
+{% endfor %}
+
+</main>
+
+ 
+{%endblock conteudo%}

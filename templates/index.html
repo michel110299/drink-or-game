@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+{% load materializecss %}
+{%block conteudo%}
+
+<main>
+    <form method="POST">
+        {% csrf_token %}
+        
+        {{form|materializecss}}
+        <div class="row">
+            <div class="col s2 offset-s5">
+                <button class="btn waves-effect  indigo darken-3" type="submit" name="action">Submit
+                    <i class="material-icons right">ios_share</i>
+                </button>
+
+            </div>
+        </div>
+
+    </form>
+    
+    
+</main>
+
+ 
+{%endblock conteudo%}
