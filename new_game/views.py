@@ -1,5 +1,12 @@
 from django.shortcuts import render, redirect
 from new_game.forms import *
+import random
+from rest_framework import *
+from django.core import serializers
+from django.http import HttpResponse, JsonResponse
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+    
 
 def cadastrar_jogo(request):
     formJogo = JogoForm
@@ -33,21 +40,44 @@ def cadastrar_jogo(request):
 
 def inicio_jogo(request,id_jogo):
     objJogo = Jogo.objects.get(pk=id_jogo)
+    listUsuarios = Jogador.objects.filter(jogo=objJogo)
     nivel = objJogo.nivel_jogo
-    desafios = None
-    if nivel == "f":
-        desafios = Desafios.objects.filter(nivel_frase = "f")
-    elif nivel == "m":
-        desafios = Desafios.objects.filter(nivel_frase = "m")
-    elif nivel == "d":
-        desafios = Desafios.objects.filter(nivel_frase = "d")
-    else:
-        desafios = Desafios.objects.all()
+
     context = {
         "nome_pagina":"jogo rolando",
         "objJogo": objJogo,
-        "desafios" : desafios
+        "id_jogo" :id_jogo,
+        "listUsuarios":listUsuarios,
     }
 
     return render(request,"inicio_jogo.html",context)
+
+def gerar_frase(request):
+    nivel = request.GET.get("nivel",None)
+    id_jogo = request.GET.get("id_jogo",None)
+    ponto = request.GET.get("ponto",None)
+    user = request.GET.get("user",None)
+    objJogo = Jogo.objects.get(pk=id_jogo)  
+    objJogador= Jogador.objects.get(jogo=objJogo,nome_completo = user)
+    objJogador.pontuacao += int(ponto)
+    objJogador.save()
+    desafios = None
+    if nivel != "xtd":
+        desafios = Desafios.objects.filter(nivel_frase = nivel)
+    else:
+        desafios = Desafios.objects.all()    
+    n = random.randint(0,(len(desafios)-1))
+
+    doses = Qtd_doses.objects.all()    
+    n2 = random.randint(0,(len(doses)-1))  
+
+    data = {
+        'Frase':desafios[n].frase,
+        'doses':doses[n2].frase,
+        'jogador':objJogador.nome_completo,
+    }
+    data_json = json.dumps(data,cls=DjangoJSONEncoder)
+    return HttpResponse(data_json, content_type="application/json")
+
+
 
