@@ -11,8 +11,7 @@
         <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="{% static 'css/custom.css' %}">
         <script type="text/javascript" src="{% static 'js/custom.js'%}"></script>
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous">
         </script>
@@ -20,53 +19,26 @@
         <script type="text/javascript" src="{% static 'js/materializedatetimepicker.js' %}"></script>
         <script src="{% static 'js/jquery.mask.min.js'%}"></script>
     
-        <title>Document</title>
+        <title>Jogo</title>
     </head> 
 <body>
     
     <header>
-        <nav>
-            <div class=" z-depth-2 red nav-wrapper">
-                <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a 
-                        href="#">
-                        <i class="material-icons right">how_to_reg</i>
-                        Cadastrar jogador
-                    </a></li>
-                    <li><a 
-                        href="{% url 'cadastrar_jogo' %}">
-                        <i class="material-icons right">account_circle</i>
-                        Cadastrar jogo
-                    </a></li>
-
-                    <!-- Dropdown Trigger -->
-              </ul>
-              
-            </div>
-        </nav>
-        <ul class="sidenav" id="mobile-demo">
-            <li><a 
-                href="#">
-                <i class="material-icons right">how_to_reg</i>
-                Cadastrar conta
-            </a></li>
-            <li><a 
-                href="#">
-                <i class="material-icons right">account_circle</i>
-                Login
-            </a></li>
-        </ul>
-        
-        
+        {% block nav %}
+            <nav style="background: linear-gradient(60deg,#ff1313,#532828);">
+                <div class=" z-depth-2 nav-wrapper" >
+                    <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                </div>
+            </nav>
+        {% endblock %}
     </header>
 
 
     {% block conteudo %}
     {% endblock conteudo %}
 
-    <footer class="page-footer red ">
+    <footer style="background: linear-gradient(60deg,#ff1313,#532828);" class="page-footer red ">
         <div class="footer-copyright ">
           
         </div>
@@ -80,6 +52,7 @@
         $('.tabs').tabs();
         $(".dropdown-trigger").dropdown();
         $('.sidenav').sidenav();
+        $('.modal').modal();
         
             
     });

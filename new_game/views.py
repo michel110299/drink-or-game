@@ -44,7 +44,7 @@ def inicio_jogo(request,id_jogo):
     nivel = objJogo.nivel_jogo
 
     context = {
-        "nome_pagina":"jogo rolando",
+        "nome_pagina":objJogo.nome,
         "objJogo": objJogo,
         "id_jogo" :id_jogo,
         "listUsuarios":listUsuarios,
@@ -82,10 +82,26 @@ def gravar_ponto(request):
     print(jogador)
     objJogador = Jogador.objects.get(pk=jogador)
     objJogador.pontuacao += int(ponto)
+    regra_da_casa = RegraCasa.objects.all()
+    n = random.randint(0,(len(regra_da_casa)-1))
+
+
     objJogador.save()
     data ={
         "texto":"pontuaçao computada",
+        "regra_casa":regra_da_casa[n].frase,
     }
     data_json = json.dumps(data,cls=DjangoJSONEncoder)
     return HttpResponse(data_json, content_type="application/json")
+
+
+def sair(request,id_jogo):
+    objJogo = Jogo.objects.get(pk=id_jogo)
+    listUsuarios = Jogador.objects.filter(jogo=objJogo) 
+
+    context = {
+        "nome_pagina":"Arregão",
+        "listUsuarios" : listUsuarios,
+    }
+    return render(request,"gerar_pdf.html",context)
 

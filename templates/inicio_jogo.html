@@ -1,28 +1,63 @@
 {%extends "base.html"%}
 {% load materializecss %}
+
+{% block nav %}
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Vão arregar?</h4>
+            <p>Se sairem serão um arregão</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="modal-close waves-effect waves-green btn-flat">NÃO</a>
+            <a href="{% url 'desistir' objJogo.id %}" class="modal-close waves-effect waves-green btn-flat">SIM</a>
+        </div>
+       </div>
+    <nav>
+        <div class=" z-depth-2 red nav-wrapper">
+            <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a 
+                    data-target="modal1" class="modal-trigger">
+                    <i class="material-icons right">sports_kabaddi</i>
+                    DESISTIR
+                </a></li>
+            </ul>
+        
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a 
+            data-target="modal1" class="modal-trigger">
+            <i class="material-icons right">sports_kabaddi</i>
+            DESISTIR
+        </a></li>
+    </ul>
+{% endblock %}
+
 {%block conteudo%}
 
 <main>
     <div class=" row container margin">
         <div class="col s6 offset-s3">
-            <div class="card-panel teal">
+            <div class="card-panel teal" style="background: linear-gradient(60deg,#c8e280,#e53935);">
+
                 <div method="GET" id="gerar-frase" class="center">
-                    
+
                 </div>  
 
-                <button method="POST" id="id_feito"class=" center btn waves-effect waves-light left" onclick="functionfeito(2)">feito
-                    <i class="material-icons right">send</i>
+                <button method="POST" id="id_feito"class=" center btn waves-effect waves-light left" onclick="functionfeito(2)">DESAFIO
+                    <i class="material-icons right">local_fire_department</i>
                 </button>  
-                <button method="POST" id="id_passa" class=" center btn waves-effect waves-light right"onclick="functionfeito(1)">proximo
-                    <i class="material-icons right">send</i>
+                <button method="POST" id="id_passa" class=" center btn waves-effect waves-light right"onclick="functionfeito(1)">BEBEU
+                    <i class="material-icons right">sports_bar</i>
                 </button>
             
             </div>
-
-
         </div>
     </div>
-    
+
+
     
 
 </main>
@@ -85,11 +120,18 @@
                     n += 1
                 }
                 jogadas +=1 
-                // if(limite_Jogadas >= njogadas){
-
-                // }
+                if(limite_rodada <= jogadas){
+                    jogadas = 0;
+                    var div = document.getElementById('gerar-frase');
+                    div.innerHTML =  "<p>"+carta.regra_casa+"</p>";
+                    $("#id_feito").attr("onclick","getCarta(listJogadores[n])");
+                    $("#id_passa").attr("onclick","getCarta(listJogadores[n])");
+                }
+                else{
+                    getCarta(listJogadores[n]); 
+                }
                 
-                getCarta(listJogadores[n]);                     
+                                        
             }
             
         });

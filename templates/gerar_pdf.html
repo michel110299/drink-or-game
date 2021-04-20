@@ -1,0 +1,63 @@
+{%extends "base.html"%}
+{% load materializecss %}
+
+{% block nav %}
+    <nav>
+        <div class=" z-depth-2 red nav-wrapper">
+            <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a 
+                   href="{% url 'cadastrar_jogo' %}">
+                    <i class="material-icons right">sports_esports</i>
+                    NOVO JOGO
+                </a></li>
+            </ul>
+        
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a 
+             href="{% url 'cadastrar_jogo' %}">
+            <i class="material-icons right">sports_esports</i>
+            NOVO JOGO
+        </a></li>
+    </ul>
+{% endblock %}
+    
+
+{%block conteudo%}
+
+
+<main>
+    <div class=" row container margin">
+        <div class="col s6 offset-s3">
+            <div class="red">
+            <table>
+                    <thead>
+                      <tr>
+                          <th>NOME</th>
+                          <th>PONTUAÇÃO</th>
+                      </tr>
+                    </thead>
+                    {%for jogador in listUsuarios%}
+                        <tbody>
+                            <tr>
+                                <td>{{jogador.nome_completo}}</td>
+                                <td>{{jogador.pontuacao}}</td>
+                            </tr>
+                        </tbody>
+                    {%endfor%}
+                  </table>
+
+            
+            </div>
+        </div>
+    </div>
+    
+    
+
+</main>   
+    
+ 
+{%endblock conteudo%}

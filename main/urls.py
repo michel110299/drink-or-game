@@ -8,6 +8,8 @@ urlpatterns = [
     path('inicio/<int:id_jogo>/',inicio_jogo,name='inicio_jogo',),
     path('gerar_frase/',gerar_frase, name='gerar_frase'),
     path('gravar_ponto/',gravar_ponto, name='gravar_ponto'),
+    path('desistir/<int:id_jogo>/',sair, name='desistir'),
+
 
 
 ]
