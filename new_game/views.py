@@ -55,25 +55,10 @@ def inicio_jogo(request,id_jogo):
 def gerar_frase(request):
     nivel = request.GET.get("nivel",None)
     id_jogo = request.GET.get("id_jogo",None)
-    ponto = request.GET.get("ponto",None)
     user = request.GET.get("user",None)
-    objJogo = Jogo.objects.get(pk=id_jogo)  
-    objJogador = Jogador.objects.get(jogo=objJogo,nome_completo = user)
-    listJogadores = Jogador.objects.filter(jogo=objJogo)
-
-    x=0
-    for n in listJogadores:
-        if n == listJogadores[0]:
-            listJogadores[len(listJogadores)-1].pontuacao+=int(ponto)
-            listJogadores[len(listJogadores)-1].save()
-            
-        elif objJogador == n:
-            listJogadores[x-1].pontuacao+=int(ponto)
-            listJogadores[x-1].save()
-
-        x += 1
-
-    desafios = None
+    objJogo = Jogo.objects.get(pk=id_jogo)
+    objJogador = Jogador.objects.get(jogo=objJogo,pk=user)
+    
     if nivel != "xtd":
         desafios = Desafios.objects.filter(nivel_frase = nivel)
     else:
@@ -91,5 +76,16 @@ def gerar_frase(request):
     data_json = json.dumps(data,cls=DjangoJSONEncoder)
     return HttpResponse(data_json, content_type="application/json")
 
-
+def gravar_ponto(request):
+    ponto = request.GET.get('ponto',None)
+    jogador = request.GET.get('jogador',None)
+    print(jogador)
+    objJogador = Jogador.objects.get(pk=jogador)
+    objJogador.pontuacao += int(ponto)
+    objJogador.save()
+    data ={
+        "texto":"pontuaçao computada",
+    }
+    data_json = json.dumps(data,cls=DjangoJSONEncoder)
+    return HttpResponse(data_json, content_type="application/json")
 

@@ -7,21 +7,18 @@
         <div class="col s6 offset-s3">
             <div class="card-panel teal">
                 <div method="GET" id="gerar-frase" class="center">
-            
+                    
                 </div>  
 
-                <button method="POST" class=" center btn waves-effect waves-light left" onclick="functionfeito(2)">feito
+                <button method="POST" id="id_feito"class=" center btn waves-effect waves-light left" onclick="functionfeito(2)">feito
                     <i class="material-icons right">send</i>
                 </button>  
-                <button method="POST" class=" center btn waves-effect waves-light right" onclick="functionfeito(1)">proximo
+                <button method="POST" id="id_passa" class=" center btn waves-effect waves-light right"onclick="functionfeito(1)">proximo
                     <i class="material-icons right">send</i>
                 </button>
             
             </div>
-            <button class=" center btn waves-effect waves-light centered" onclick="myFunction()">DESAFIO
-                <i class="material-icons right">send</i>
-            </button>
-           
+
 
         </div>
     </div>
@@ -30,34 +27,27 @@
 
 </main>
 
-<script>
-    n = 0 
-    function functionfeito(ponto){
-        const listJogadores = []
-        {%for q in listUsuarios%}
-            listJogadores.push('{{q}}')
-        {%endfor%}
-
-        var ultimo = listJogadores[listJogadores.length - 1];
-        var id_jogo = "{{id_jogo}}";
-        var ponto = ponto
-        var nivel = "{{objJogo.nivel_jogo}}";
-
-        if (listJogadores[n] == ultimo){
-            var user = listJogadores[n]
-            n=0
-        }
-        else{
-            var user = listJogadores[n]
-            n = n + 1
-        }
+<script>    
+    var nivel = "{{objJogo.nivel_jogo}}";
+    var id_jogo = "{{objJogo.id}}";
+    const listJogadores = []
+    {%for q in listUsuarios%}
+        listJogadores.push('{{q.id}}')
+    {%endfor%}
+    var ultimo = listJogadores.length - 1;
+    n = 0
+    jogadas = 0
+    limite_rodada = 2 * '{{objJogo.qtd_jogadores}}' 
+    $(document).ready(function(){  
+        getCarta(listJogadores[n]);        
+    });    
+    function getCarta(jogador){
         $.ajax({
             // o que vai ser enviado ao servidor/ views
             url:'/gerar_frase/',
             data: {
-                'nivel': nivel,
-                'ponto': ponto,
-                'user' : user,
+                'nivel': nivel,                
+                'user' : jogador,
                 'id_jogo': id_jogo,
             },
             dataType: 'json',
@@ -69,40 +59,40 @@
                 div.innerHTML =  "<p>"+carta.jogador+"</p>";
                 div.innerHTML +=  "<p>"+carta.Frase+"</p>";
                 div.innerHTML +=  "<p>"+"ou"+"</p>";
-                div.innerHTML +=  "<p>"+"beba:  "+carta.doses+" </p>";     
+                div.innerHTML +=  "<p>"+"beba:  "+carta.doses+" </p>";
+                $("#id_feito").attr("onclick","pontuacao(2,"+jogador+")");
+                $("#id_passa").attr("onclick","pontuacao(1,"+jogador+")");       
             }
         });
-
-
     }
-
-    function myFunction(){
-        var nivel = "{{objJogo.nivel_jogo }}";
-        var id_jogo = "{{id_jogo}}";  
-            
+    function pontuacao(ponto,jogador){
         $.ajax({
             // o que vai ser enviado ao servidor/ views
-            url:'/gerar_frase/',
+            url:'/gravar_ponto/',
             data: {
-                'nivel': nivel,
-                'id_jogo': id_jogo,
+                'ponto': ponto,                
+                'jogador' : jogador,                
             },
             dataType: 'json',
             
             // resposta que vai receber do servidor
             success: function(carta) {
                 console.log(carta)
-                var div = document.getElementById('gerar-frase');
-                div.innerHTML =  "<p>"+carta.jogador+"</p>";
-                div.innerHTML +=  "<p>"+carta.Frase+"</p>";
-                div.innerHTML +=  "<p>"+"ou"+"</p>";
-                div.innerHTML +=  "<p>"+"beba:  "+carta.doses+" </p>";     
+                if (ultimo == n){
+                    n = 0;
+                }
+                else{
+                    n += 1
+                }
+                jogadas +=1 
+                // if(limite_Jogadas >= njogadas){
+
+                // }
+                
+                getCarta(listJogadores[n]);                     
             }
             
-           
         });
-        
-
     }
 
         
