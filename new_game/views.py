@@ -58,9 +58,21 @@ def gerar_frase(request):
     ponto = request.GET.get("ponto",None)
     user = request.GET.get("user",None)
     objJogo = Jogo.objects.get(pk=id_jogo)  
-    objJogador= Jogador.objects.get(jogo=objJogo,nome_completo = user)
-    objJogador.pontuacao += int(ponto)
-    objJogador.save()
+    objJogador = Jogador.objects.get(jogo=objJogo,nome_completo = user)
+    listJogadores = Jogador.objects.filter(jogo=objJogo)
+
+    x=0
+    for n in listJogadores:
+        if n == listJogadores[0]:
+            listJogadores[len(listJogadores)-1].pontuacao+=int(ponto)
+            listJogadores[len(listJogadores)-1].save()
+            
+        elif objJogador == n:
+            listJogadores[x-1].pontuacao+=int(ponto)
+            listJogadores[x-1].save()
+
+        x += 1
+
     desafios = None
     if nivel != "xtd":
         desafios = Desafios.objects.filter(nivel_frase = nivel)
