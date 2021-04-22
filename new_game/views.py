@@ -97,11 +97,13 @@ def gravar_ponto(request):
 
 def sair(request,id_jogo):
     objJogo = Jogo.objects.get(pk=id_jogo)
-    listUsuarios = Jogador.objects.filter(jogo=objJogo) 
-
+    listUsuarios = Jogador.objects.filter(jogo=objJogo).order_by('-pontuacao')
+    vencedor = listUsuarios[0]
+    
     context = {
-        "nome_pagina":"Arregão",
+        "nome_pagina":"PLACAR",
         "listUsuarios" : listUsuarios,
+        "vencedor" : vencedor,
     }
     return render(request,"gerar_pdf.html",context)
 

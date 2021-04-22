@@ -2,20 +2,20 @@
 {% load materializecss %}
 
 {% block nav %}
-    <div id="modal1" class="modal">
+    <div id="modal1" class="modal" style="background: linear-gradient(60deg,#e77676,#8a4343);" >
         <div class="modal-content">
             <h4>Vão arregar?</h4>
             <p>Se sairem serão um arregão</p>
         </div>
-        <div class="modal-footer">
-            <a href="#" class="modal-close waves-effect waves-green btn-flat">NÃO</a>
-            <a href="{% url 'desistir' objJogo.id %}" class="modal-close waves-effect waves-green btn-flat">SIM</a>
+        <div class="modal-footer" style="background: linear-gradient(60deg,#f7cbcb,#cf9797);" >
+            <a href="#" class="modal-close waves-effect waves-green btn-flat black-text">NÃO</a>
+            <a href="{% url 'desistir' objJogo.id %}" class="modal-close waves-effect waves-green btn-flat black-text">SIM</a>
         </div>
        </div>
     <nav>
-        <div class=" z-depth-2 red nav-wrapper">
-            <a href="#!" class="brand-logo center">{{nome_pagina}}</a>
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <div class=" z-depth-2 red nav-wrapper" style="background: linear-gradient(60deg,#ff1313,#532828);">
+            <a href="#!" class="brand-logo center">{{nome_pagina}} <i class="material-icons">liquor</i></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu_open</i></a>
             <ul class="right hide-on-med-and-down">
                 <li><a 
                     data-target="modal1" class="modal-trigger">
