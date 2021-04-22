@@ -9,6 +9,7 @@ urlpatterns = [
     path('gerar_frase/',gerar_frase, name='gerar_frase'),
     path('gravar_ponto/',gravar_ponto, name='gravar_ponto'),
     path('desistir/<int:id_jogo>/',sair, name='desistir'),
+    path('certificado/<int:id_jogador>/<int:id_jogo>/',html_to_pdf_view,name='certificado'),
 
 
 

@@ -3,15 +3,15 @@
 {%block conteudo%}
 
 
-<main class="container">
+<main class="container col s12">
     <form method="POST">
         {% csrf_token %}
         
         {{formJogo|materializecss}}
         <div id="element"></div>
         <div class="row">
-            <div class="col s2 offset-s5">
-               <button style="background: linear-gradient(60deg,#ff1313,#532828);"type="submit" class="pulse btn-floating btn-large waves-effect waves-light red"><i class="material-icons">sports_bar</i></button>
+            <div class="col s2 offset-s5 m2 offset-m5">
+               <button style="background: linear-gradient(60deg,#ff1313,#532828);"type="submit"data-tooltip="Iniciar o jogo" class="pulse btn tooltipped btn-floating btn-large waves-effect waves-light red"><i class="material-icons">sports_bar</i></button>
             </div>
         </div>
     </form>

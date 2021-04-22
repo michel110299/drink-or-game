@@ -6,6 +6,9 @@ from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 import json
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.files.storage import FileSystemStorage
+from django.template.loader import render_to_string
+from weasyprint import HTML
     
 
 def cadastrar_jogo(request):
@@ -44,7 +47,7 @@ def inicio_jogo(request,id_jogo):
     nivel = objJogo.nivel_jogo
 
     context = {
-        "nome_pagina":objJogo.nome,
+        "nome_pagina":"JOGANDO",
         "objJogo": objJogo,
         "id_jogo" :id_jogo,
         "listUsuarios":listUsuarios,
@@ -104,6 +107,34 @@ def sair(request,id_jogo):
         "nome_pagina":"PLACAR",
         "listUsuarios" : listUsuarios,
         "vencedor" : vencedor,
+        "idjogo" : id_jogo,
     }
     return render(request,"gerar_pdf.html",context)
+
+
+def html_to_pdf_view(request,id_jogador,id_jogo):
+
+    objJogador = Jogador.objects.get(pk=id_jogador)
+    objJogo = Jogo.objects.get(pk=id_jogo)
+
+    context = {
+        "nome_pagina":"PLACAR",
+        "vencedor" : objJogador,
+        "Jogo" : objJogo,
+    }
+
+
+    # paragraphs = ['first paragraph', 'second paragraph', 'third paragraph']
+    html_string = render_to_string('pdf_template.html',context)
+
+    html = HTML(string=html_string)
+    html.write_pdf(target='/tmp/mypdf.pdf');
+
+    fs = FileSystemStorage('/tmp')
+    with fs.open('mypdf.pdf') as pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename='+objJogador.nome_completo+'".pdf"'
+        return response
+
+    return response
 

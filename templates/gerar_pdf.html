@@ -30,8 +30,8 @@
 
 
 <main>
-    <div class=" row container margin" >
-        <div class="col s12">
+    <div class=" row margin" >
+        <div class="col s12 m8 offset-m2">
             <!-- <div class="red"> -->
             <table class=" black-text z-depth-5 centered responsive-table">
                         <thead>
@@ -46,14 +46,26 @@
                     {%for jogador in listUsuarios%}
                         <tbody>
                             {% if jogador == vencedor%}
+                                {% if jogador.pontuacao > 0%}
+                                    <tr style="background: linear-gradient(50deg,#8fc58a59,#02680b7c);" >
+                                        <td>VENCEDOR</td>
+                                        <td>{{jogador.nome_completo}}</td>
+                                        <td>{{jogador.pontuacao}}</td>
+                                        <td>  
+                                            <a href="{% url 'certificado' jogador.id  idjogo %}" class="btn-floating btn-large waves-effect waves-light black pulse"><i class="material-icons">picture_as_pdf</i></a>
+                                        </td>
+                                    </tr>
+                                {%else%}
                                 <tr style="background: linear-gradient(50deg,#8fc58a59,#02680b7c);" >
                                     <td>VENCEDOR</td>
                                     <td>{{jogador.nome_completo}}</td>
                                     <td>{{jogador.pontuacao}}</td>
                                     <td>  
-                                        <a class="btn-floating btn-large waves-effect waves-light black pulse"><i class="material-icons">picture_as_pdf</i></a>
+                                        <a class="btn-floating disabled btn-large waves-effect waves-light black pulse"><i class="material-icons">picture_as_pdf</i></a>
                                     </td>
                                 </tr>
+                                {%endif%}
+
                             {% else %}
                                 <tr>
                                     <td>PERDEDOR</td>

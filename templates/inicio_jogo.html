@@ -12,7 +12,7 @@
             <a href="{% url 'desistir' objJogo.id %}" class="modal-close waves-effect waves-green btn-flat black-text">SIM</a>
         </div>
        </div>
-    <nav>
+    <nav class="nav-extended">
         <div class=" z-depth-2 red nav-wrapper" style="background: linear-gradient(60deg,#ff1313,#532828);">
             <a href="#!" class="brand-logo center">{{nome_pagina}} <i class="material-icons">liquor</i></a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu_open</i></a>
@@ -39,19 +39,16 @@
 
 <main>
     <div class=" row container margin">
-        <div class="col s6 offset-s3">
+        <div class="col s12 m6 offset-m3">
             <div class="card-panel teal" style="background: linear-gradient(60deg,#c8e280,#e53935);">
 
                 <div method="GET" id="gerar-frase" class="center">
 
                 </div>  
+                
+                <button id="id_feito" data-tooltip="Cumpriu o desafio" class="btn-floating btn tooltipped btn-large waves-effect waves-light red left" onclick="functionfeito(2)" ><i class="material-icons">local_fire_department</i></button>
+                <button id="id_passa" data-tooltip="Bebeu" class="btn-floating btn tooltipped btn-large waves-effect waves-light red right" onclick="functionfeito(1)" ><i class="material-icons">sports_bar</i></button>
 
-                <button method="POST" id="id_feito"class=" center btn waves-effect waves-light left" onclick="functionfeito(2)">DESAFIO
-                    <i class="material-icons right">local_fire_department</i>
-                </button>  
-                <button method="POST" id="id_passa" class=" center btn waves-effect waves-light right"onclick="functionfeito(1)">BEBEU
-                    <i class="material-icons right">sports_bar</i>
-                </button>
             
             </div>
         </div>
@@ -72,7 +69,8 @@
     var ultimo = listJogadores.length - 1;
     n = 0
     jogadas = 0
-    limite_rodada = 2 * '{{objJogo.qtd_jogadores}}' 
+
+    limite_rodada = Math.floor(Math.random() * 9)    * '{{objJogo.qtd_jogadores}}' 
     $(document).ready(function(){  
         getCarta(listJogadores[n]);        
     });    

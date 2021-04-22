@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <style type='text/css'>
+            body, html {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                color:linear-gradient(60deg,#ff1313,#532828);
+                display: table;
+                font-family: Georgia, serif;
+                font-size: 24px;
+                text-align: center;
+            }
+            .container {
+                border: 20px solid rgb(80, 8, 8);
+                width:600px;
+                height: 563px;
+                display: table-cell;
+                vertical-align: middle;
+                /* borda */
+            }
+            .logo {
+                color: rgb(158, 156, 12);
+                /* titulo */
+            }
+
+            .marquee {
+                color: rgb(204, 11, 11);
+                font-size: 48px;
+                margin: 20px;
+            }
+            .assignment {
+                margin: 20px;
+            }
+            .person {
+                border-bottom: 2px solid black;
+                font-size: 32px;
+                font-style: italic;
+                margin: 20px auto;
+                width: 400px;
+            }
+            .reason {
+                margin: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="logo">
+                DRINK OR GAME
+            </div>
+
+            <div class="marquee">
+                Certifica que 
+            </div>
+            
+            <div class="person">
+                {{vencedor}}
+            </div>
+
+            <div class="assignment">
+                Ganhou o jogo: {{Jogo.nome}}
+            </div>
+            <div class="reason">
+                PARABÉNS<br/>
+                Voce é um grande cachaceiro(a)!!
+            </div>
+        </div>
+    </body>
+</html>
