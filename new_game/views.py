@@ -44,12 +44,10 @@ def cadastrar_jogo(request):
 def inicio_jogo(request,id_jogo):
     objJogo = Jogo.objects.get(pk=id_jogo)
     listUsuarios = Jogador.objects.filter(jogo=objJogo)
-    nivel = objJogo.nivel_jogo
 
     context = {
         "nome_pagina":"JOGANDO",
         "objJogo": objJogo,
-        "id_jogo" :id_jogo,
         "listUsuarios":listUsuarios,
     }
 
@@ -82,7 +80,6 @@ def gerar_frase(request):
 def gravar_ponto(request):
     ponto = request.GET.get('ponto',None)
     jogador = request.GET.get('jogador',None)
-    print(jogador)
     objJogador = Jogador.objects.get(pk=jogador)
     objJogador.pontuacao += int(ponto)
     regra_da_casa = RegraCasa.objects.all()
