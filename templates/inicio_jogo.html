@@ -38,7 +38,7 @@
 {%block conteudo%}
 
 <main>
-    <div class=" row container margin">
+    <div class=" row container margin tremetreme">
         <div class="col s12 m6 offset-m3">
             <div class="card-panel teal" style="background: linear-gradient(60deg,#c8e280,#e53935);">
 
@@ -59,7 +59,8 @@
 
 </main>
 
-<script>    
+<script src="{%'https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'%}">    
+
     var nivel = "{{objJogo.nivel_jogo}}";
     var id_jogo = "{{objJogo.id}}";
     const listJogadores = []
@@ -70,7 +71,7 @@
     n = 0
     jogadas = 0
 
-    limite_rodada = Math.floor(Math.random() * 9)    * '{{objJogo.qtd_jogadores}}' 
+    limite_rodada = Math.floor(Math.random() * 9) * (Math.floor(Math.random() * 4)) 
     $(document).ready(function(){  
         getCarta(listJogadores[n]);        
     });    

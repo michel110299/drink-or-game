@@ -45,8 +45,8 @@
 
                     {%for jogador in listUsuarios%}
                         <tbody>
-                            {% if jogador == vencedor%}
-                                {% if jogador.pontuacao > 0%}
+                            {% if jogador.pontuacao == vencedor.pontuacao%}
+                                {% if jogador.pontuacao > 0 %}
                                     <tr style="background: linear-gradient(50deg,#8fc58a59,#02680b7c);" >
                                         <td>VENCEDOR</td>
                                         <td>{{jogador.nome_completo}}</td>

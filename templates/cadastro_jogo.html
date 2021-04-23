@@ -11,12 +11,14 @@
         <div id="element"></div>
         <div class="row">
             <div class="col s2 offset-s5 m2 offset-m5">
-               <button style="background: linear-gradient(60deg,#ff1313,#532828);"type="submit"data-tooltip="Iniciar o jogo" class="pulse btn tooltipped btn-floating btn-large waves-effect waves-light red"><i class="material-icons">sports_bar</i></button>
+                
+               <button id="btn" style="background: linear-gradient(60deg,#ff1313,#532828);"type="submit"data-tooltip="Iniciar o jogo" class="pulse btn tooltipped btn-floating btn-large waves-effect waves-light red"><i class="material-icons">sports_bar</i></button>
             </div>
         </div>
     </form>
 </main>
 <script>
+    $('#yourElement').addClass('animated bounceOutLeft');
     $(document).ready(function(){   
         $("#id_qtd_jogadores").change(function() {                
             var numero = $("#id_qtd_jogadores").val();
