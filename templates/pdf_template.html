@@ -1,3 +1,4 @@
+{%load static%}
 <html>
     <head>
         <style type='text/css'>
@@ -11,6 +12,13 @@
                 font-family: Georgia, serif;
                 font-size: 24px;
                 text-align: center;
+            }
+            .container1{
+                border: 20px solid rgb(0, 0, 0);
+                width:600px;
+                height: 563px;
+                display: table-cell;
+                vertical-align: middle;
             }
             .container {
                 border: 20px solid rgb(80, 8, 8);
@@ -46,25 +54,29 @@
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="logo">
-                DRINK OR GAME
-            </div>
+        <div class="container1">
+            <div class="container">
 
-            <div class="marquee">
-                Certifica que 
-            </div>
-            
-            <div class="person">
-                {{vencedor}}
-            </div>
+                <img alt="django" src="{% static 'img/beer.jpg' %}" width="200px" height="220px">
+                <div class="logo">
+                    DRINK OR GAME
+                </div>
 
-            <div class="assignment">
-                Ganhou o jogo: {{Jogo.nome}}
-            </div>
-            <div class="reason">
-                PARABÉNS<br/>
-                Voce é um grande cachaceiro(a)!!
+                <div class="marquee">
+                    Certifica que 
+                </div>
+                
+                <div class="person">
+                    {{vencedor}}
+                </div>
+
+                <div class="assignment">
+                    Ganhou o jogo: {{Jogo.nome}}
+                </div>
+                <div class="reason">
+                    PARABÉNS<br/>
+                    Voce é um grande cachaceiro(a)!!
+                </div>
             </div>
         </div>
     </body>

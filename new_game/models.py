@@ -14,7 +14,7 @@ NIVEL_DESAFIOS=(
 )
 class Jogo(models.Model):
     nome = models.CharField("Nome do jogo:", max_length=100, blank=False, null=False)
-    qtd_jogadores = models.IntegerField("Quantidades de jogadores:", blank=False, null=False)
+    qtd_jogadores = models.PositiveIntegerField("Quantidades de jogadores:", blank=False, null=False)
     nivel_jogo = models.CharField("Nível do jogo:", max_length=90, choices=NIVEL_JOGO, blank=False, null=False)
 
     class Meta:

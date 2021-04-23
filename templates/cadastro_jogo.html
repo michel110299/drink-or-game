@@ -3,7 +3,7 @@
 {%block conteudo%}
 
 
-<main class="container col s12">
+<main class="container formulario col s12">
     <form method="POST">
         {% csrf_token %}
         
@@ -12,13 +12,26 @@
         <div class="row">
             <div class="col s2 offset-s5 m2 offset-m5">
                 
-               <button id="btn" style="background: linear-gradient(60deg,#ff1313,#532828);"type="submit"data-tooltip="Iniciar o jogo" class="pulse btn tooltipped btn-floating btn-large waves-effect waves-light red"><i class="material-icons">sports_bar</i></button>
+               <button onclick="cadastrado_sucess()" id="btn" style="background: linear-gradient(60deg,#ff1313,#532828);"type="submit"data-tooltip="Iniciar o jogo" class=" botao pulse btn tooltipped btn-floating btn-large waves-effect waves-light red"><i class="material-icons">sports_bar</i></button>
             </div>
         </div>
     </form>
 </main>
 <script>
-    $(document).ready(function(){   
+
+    function cadastrado_sucess(jogador){
+
+
+        animateCSS('.formulario ', 'hinge');
+
+
+
+    }
+    
+    $(document).ready(function(){
+        
+        animateCSS('.formulario ', 'rollIn');
+        
         $("#id_qtd_jogadores").change(function() {                
             var numero = $("#id_qtd_jogadores").val();
             x=0
@@ -33,7 +46,24 @@
             }
         
         });
-    });    
+    });   
+    const animateCSS = (element, animation, prefix = 'animate__') =>
+    // We create a Promise and return it
+    new Promise((resolve, reject) => {
+        const animationName = `${prefix}${animation}`;
+        const node = document.querySelector(element);
+
+        node.classList.add(`${prefix}animated`, animationName);
+
+        // When the animation ends, we clean the classes and resolve the Promise
+        function handleAnimationEnd(event) {
+        event.stopPropagation();
+        node.classList.remove(`${prefix}animated`, animationName);
+        resolve('Animation ended');
+        }
+
+        node.addEventListener('animationend', handleAnimationEnd, {once: true});
+    }); 
 </script>
  
 {%endblock conteudo%}

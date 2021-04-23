@@ -1,11 +1,14 @@
 {%extends "base.html"%}
+
 {% load materializecss %}
+
+{% load static %}
 
 {% block nav %}
     <div id="modal1" class="modal" style="background: linear-gradient(60deg,#e77676,#8a4343);" >
         <div class="modal-content">
-            <h4>Vão arregar?</h4>
-            <p>Se sairem serão um arregão</p>
+            <h4 class="center container">Deseja sair? </h4>
+            <!-- <p>Se sairem serão um arregão</p> -->
         </div>
         <div class="modal-footer" style="background: linear-gradient(60deg,#f7cbcb,#cf9797);" >
             <a href="#" class="modal-close waves-effect waves-green btn-flat black-text">NÃO</a>
@@ -20,7 +23,7 @@
                 <li><a 
                     data-target="modal1" class="modal-trigger">
                     <i class="material-icons right">sports_kabaddi</i>
-                    DESISTIR
+                    FINALIZAR
                 </a></li>
             </ul>
         
@@ -38,18 +41,28 @@
 {%block conteudo%}
 
 <main>
-    <div class=" row container margin tremetreme ">
-        <div class="col s12 m6 offset-m3 ">
-            <div class="card-panel teal " style="background: linear-gradient(60deg,#c8e280,#e53935);">
+    <div class=" row margin">
+        <div class="col s12 m2" >
+
+            <img alt="django" class="beer_left container" src="{% static 'img/beer.jpg' %}" width="200px" height="220px">
+
+        </div>
+        <div class="col s12 m8">
+            <div class="card-panel teal tremetreme " style="background: linear-gradient(60deg,#c8e280,#e53935);">
 
                 <div method="GET" id="gerar-frase" class="center">
                     
-                </div>  
+                </div>
                 
-                <button id="id_feito" data-tooltip="Cumpriu o desafio" class="btn-floating btn tooltipped btn-large waves-effect waves-light red left" onclick="functionfeito(2)" ><i class="material-icons">local_fire_department</i></button>
-                <button id="id_passa" data-tooltip="Bebeu" class="btn-floating btn tooltipped btn-large waves-effect waves-light red right" onclick="functionfeito(1)" ><i class="material-icons">sports_bar</i></button>
+                <button id="id_feito" data-tooltip=" Cumpriu o desafio" class=" button-left btn-floating btn tooltipped btn-large waves-effect waves-light red left" onclick="functionfeito(2)" ><i class="material-icons">local_fire_department</i></button>
+                <button id="id_passa" data-tooltip=" Bebeu" class=" button-right btn-floating btn tooltipped btn-large waves-effect waves-light red right" onclick="functionfeito(1)" ><i class="material-icons">sports_bar</i></button>
             
             </div>
+        </div>
+        <div class="col s12 m2" >
+
+            <img alt="django" class="beer_right container" src="{% static 'img/beer.jpg' %}" width="200px" height="220px">
+
         </div>
     </div>
     
@@ -76,6 +89,10 @@
     
     function getCarta(jogador){
         animateCSS('.tremetreme ', 'zoomInDown');
+        animateCSS('.beer_right ', 'backInLeft');
+        animateCSS('.beer_left ', 'backInRight');
+        animateCSS('.button-left ', 'backInRight');
+        animateCSS('.button-right ', 'backInLeft');
         $.ajax({
             // o que vai ser enviado ao servidor/ views
             url:'/gerar_frase/',
@@ -91,10 +108,10 @@
                 console.log(carta)
                 var div = document.getElementById('gerar-frase');
                 
-                div.innerHTML =  "<p>"+carta.jogador+"</p>";
-                div.innerHTML +=  "<p>"+carta.Frase+"</p>";
-                div.innerHTML +=  "<p>"+"ou"+"</p>";
-                div.innerHTML +=  "<p>"+"beba:  "+carta.doses+" </p>";
+                div.innerHTML =  "<h1>"+carta.jogador+"</h1>";
+                div.innerHTML +=  "<h6>"+carta.Frase+"</h6>";
+                div.innerHTML +=  "<h5>"+"ou"+"</h5>";
+                div.innerHTML +=  "<h6>"+"beba:  "+carta.doses+" </h6>";
                 $("#id_feito").attr("onclick","pontuacao(2,"+jogador+")");
                 $("#id_passa").attr("onclick","pontuacao(1,"+jogador+")"); 
                 
@@ -125,8 +142,12 @@
                 if(limite_rodada <= jogadas){
                     jogadas = 0;
                     animateCSS('.tremetreme ', 'zoomInDown');
+                    animateCSS('.beer_right ', 'backInLeft');
+                    animateCSS('.beer_left ', 'backInRight');
+                    animateCSS('.button-left ', 'backInRight');
+                    animateCSS('.button-right ', 'backInLeft');
                     var div = document.getElementById('gerar-frase');
-                    div.innerHTML =  "<p>"+carta.regra_casa+"</p>";
+                    div.innerHTML =  "<h5>"+carta.regra_casa+"</h5>";
                     $("#id_feito").attr("onclick","getCarta(listJogadores[n])");
                     $("#id_passa").attr("onclick","getCarta(listJogadores[n])");
                 }
